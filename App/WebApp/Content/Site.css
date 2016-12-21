@@ -22,3 +22,24 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#mynetwork{
+    height: 500px;
+}
+#interactions {
+    margin:0px;
+}
+.buttons-own div{
+    display:inline-flex;
+    justify-content:space-around;
+    padding: 10px 30px;
+}
+.buttons-own div button {
+    width: auto;
+}
+
+@media screen and (max-width:1200px) {
+    .buttons-own div button {
+        width: 100%;
+    }
+}

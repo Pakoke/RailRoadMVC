@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <title>Network | Label alignment</title>
+
+  <script type="text/javascript" src="../../../dist/vis.js"></script>
+  <link href="../../../dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+
+  <style type="text/css">
+    #mynetwork {
+      width: 600px;
+      height: 600px;
+      border: 1px solid lightgray;
+    }
+    p {
+      max-width:600px;
+    }
+  </style>
+  <script src="../../googleAnalytics.js"></script>
+</head>
+
+<body>
+
+<p>Labels of edges can be aligned to edges in various ways.</p>
+<p>Text-alignment within node labels can be 'left' or 'center', other font alignments not implemented.</p>
+<p>Label alignment (placement of label &quot;box&quot;) for nodes (top, bottom, left, right, inside) is
+planned but not in vis yet.</p>
+
+<div id="mynetwork"></div>
+<form action="">
+	<div id="newDatas">		
+			<div id="Cityto-div" class="City-div">
+				<label id="City-label">Ciudad to</label>
+				<input type="text" id="Cityto-textbox">
+			</div>
+			<div id="Cityfrom-div" class="City-div">
+				<label id="City-label">Ciudad from</label>
+				<input type="text" id="Cityfrom-textbox">
+			</div>	
+			<div id="Roadweight-div" class="Road-div">
+				<label id="Road-label">Road</label>
+				<input type="text" id="Roadweight-textbox">
+			</div>	
+	</div>
+</form>
+<script type="text/javascript">
+  // create an array with nodes
+  var nodes = [
+    {id: 1, label: 'A'},
+    {id: 2, label: 'B'},
+    {id: 3, label: 'C'},
+    {id: 4, label: 'D'},
+    {id: 5, label: 'E'}
+  ];
+
+  // create an array with edges
+  var edges = [
+    {from: 1, to: 2, label: '5',  arrows:'to',   font: {align: 'middle'}},
+	{from: 1, to: 4, label: '5',  arrows:'to',   font: {align: 'middle'}},
+	{from: 1, to: 5, label: '7',  arrows:'to',   font: {align: 'middle'}},
+    {from: 2, to: 3, label: '4',  arrows:'to',   font: {align: 'middle'}},
+    {from: 3, to: 4, label: '8',  arrows:'to',	 font: {align: 'middle'}},
+	{from: 3, to: 5, label: '6',  arrows:'to',   font: {align: 'middle'}},
+	{from: 4, to: 3, label: '8',  arrows:'to',	 font: {align: 'middle'}},
+	{from: 4, to: 5, label: '6',  arrows:'to',	 font: {align: 'middle'}},
+    {from: 5, to: 2, label: '3',  arrows:'to',	 font: {align: 'middle'}}
+  ];
+
+  // create a network
+  var container = document.getElementById('mynetwork');
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  var options = {};
+  var network = new vis.Network(container, data, options);
+</script>
+
+</body>
+</html>
