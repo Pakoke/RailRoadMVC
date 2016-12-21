@@ -4,18 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3FB0F241-E221-4CA6-BCA0-2AC48E6C426F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{871D6AB7-6FA4-4684-87B3-91A2BCE7CA41}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConsoleApp</RootNamespace>
-    <AssemblyName>ConsoleApp</AssemblyName>
+    <RootNamespace>BTAlgorithms</RootNamespace>
+    <AssemblyName>BTAlgorithms</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -60,30 +57,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="AbstractAlgorithm.cs" />
+    <Compile Include="AlgorithmBT.cs" />
+    <Compile Include="FactoryAlgorithms.cs" />
+    <Compile Include="Math2.cs" />
+    <Compile Include="ProblemBT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateBT.cs" />
+    <Compile Include="StateBTF.cs" />
+    <Compile Include="Type.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BTRoadServices\BTRoadServices.csproj">
-      <Project>{aa3d4409-2ddc-4921-938d-c6a81c9fcf00}</Project>
-      <Name>BTRoadServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Domains\GraphDomain\GraphDomain.csproj">
-      <Project>{76f8696f-4b3e-4d0a-adc5-292573fb4c90}</Project>
-      <Name>GraphDomain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Algorithms\BTAlgorithms.csproj">
-      <Project>{871d6ab7-6fa4-4684-87b3-91a2bce7ca41}</Project>
-      <Name>BTAlgorithms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\BT\BTSudoku\BTSudoku.csproj">
-      <Project>{b188b041-5107-4a26-8412-4c29f6b6d365}</Project>
-      <Name>BTSudoku</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
