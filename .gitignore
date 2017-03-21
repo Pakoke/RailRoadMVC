@@ -23,7 +23,7 @@ bld/
 [Oo]bj/
 
 #Avoid to include Package nuget
-package/
+packages/
 
 # Visual Studio 2015 cache/options directory
 .vs/
