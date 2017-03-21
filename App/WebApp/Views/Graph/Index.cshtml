@@ -9,8 +9,10 @@
     <title>Timeline basic demo</title>
     @section scripts{
         <script type="text/javascript" src="~/Scripts/graph.functions.js"></script>
-        <script type="text/javascript" src="~/Scripts/Libs/vis-4.17.0/dist/vis.js" ></script>
-        <link href="~/Scripts/Libs/vis-4.17.0/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="~/Scripts/Libs/vis-4.17.0/dist/vis.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js" integrity="sha256-55Jz3pBCF8z9jBO1qQ7cIf0L+neuPTD1u7Ytzrp2dqo=" crossorigin="anonymous"></script>
+        <link href="~/Scripts/Libs/vis-4.17.0/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://code.jquery.com/ui/1.12.0-rc.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
     }
 
     @Scripts.Render("~/Scripts/Libs/vis-4.17.0/dist/vis.js")
@@ -24,72 +26,124 @@
 <body>
     <div class="container">
         <div class="row">
-            <div id="mynetwork" class="col-lg-10"></div>
-            <div id="interactions" class="col-lg-2">
-                <div class="row buttons-own">
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-default">Left</button>
+            <div id="mynetwork" class="col-lg-8"></div>
+            <div id="interactions" class="col-lg-4">
+                <div class="row">
+                    <h1>Controls</h1>
+                    <div class="row buttons-own">
+                        <h1>Example graphs</h1>
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-default" onclick="draw(1)">Example 1</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-default" onclick="draw(2)">Example 2</button>
+                        </div>
+                        <div class="col-xs-4">
+                            <button type="button" class="btn btn-default" onclick="draw(3)">Example 3</button>
+                        </div>
                     </div>
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-default">Left</button>
+                    <div class="row">
+                        <h1>Algorithms graphs</h1>
+                        <div class="row buttons-own">
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-default" onclick="DistanceRoute()">Distance route</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-default" onclick="ExactStrips()">Strips exactly </button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-default" onclick="MinimunStrips()">Strips minimun </button>
+                            </div>
+                        </div>
+                        <div class="row buttons-own">
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-default" onclick="ShortestRoute()">Shortest route</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-default" onclick="NumberRoutes()">Number of routes</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-default">Left</button>
+                    <div class="row controls-own">
+                        <label class="col-xs-4" >Add Vertex</label>
+                        <input type="text" id="node-id" class="col-xs-4" placeholder="Vertex" />
+                        <button type="button" class="col-xs-2 btn btn-default" onclick="addVertex()">Add</button>
                     </div>
-                </div>
-                <div class="row buttons-own">
-                    <div class="col-xs-6">
-                        <button type="button" class="btn btn-default">Left</button>
+                    <div class="row controls-own">
+                        <label class="col-xs-3">Add Edge</label>
+                        <input type="text" id="node-source" class="col-xs-2" placeholder="Source"/>
+                        <input type="text" id="node-target" class="col-xs-2" placeholder="Target" />
+                        <input type="number" id="node-distance" class="col-xs-2" placeholder="Distance" />
+                        <button type="button" class="col-xs-2 btn btn-default" onclick="addEdge()">Add</button>
                     </div>
-                    <div class="col-xs-6">
-                        <button type="button" class="btn btn-default">Left</button>
-                    </div>
-                </div>
-                <div class="row buttons-own">
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-default">Left</button>
-                    </div>
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-default">Left</button>
-                    </div>
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-default">Left</button>
+                    <div class="row controls-own">
+                        <textarea id="results" class="col-xs-12"></textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-          // create an array with nodes
-          var nodes = [
-            {id: 1, label: 'A'},
-            {id: 2, label: 'B'},
-            {id: 3, label: 'C'},
-            {id: 4, label: 'D'},
-            {id: 5, label: 'E'}
-          ];
-
-          // create an array with edges
-          var edges = [
-            {from: 1, to: 2, label: '5',  arrows:'to',   font: {align: 'middle'}},
-	        {from: 1, to: 4, label: '5',  arrows:'to',   font: {align: 'middle'}},
-	        {from: 1, to: 5, label: '7',  arrows:'to',   font: {align: 'middle'}},
-            {from: 2, to: 3, label: '4',  arrows:'to',   font: {align: 'middle'}},
-            {from: 3, to: 4, label: '8',  arrows:'to',	 font: {align: 'middle'}},
-	        {from: 3, to: 5, label: '6',  arrows:'to',   font: {align: 'middle'}},
-	        {from: 4, to: 3, label: '8',  arrows:'to',	 font: {align: 'middle'}},
-	        {from: 4, to: 5, label: '6',  arrows:'to',	 font: {align: 'middle'}},
-            {from: 5, to: 2, label: '3',  arrows:'to',	 font: {align: 'middle'}}
-          ];
-
-          // create a network
-          var container = document.getElementById('mynetwork');
-          var data = {
-            nodes: nodes,
-            edges: edges
-          };
-          var options = {};
-  var network = new vis.Network(container, data, options);
-    </script>
+    <div hidden="true">
+        <div id="dialog-confirm-path" title="Choose your path">
+            <p>
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;">
+                </span>Choose put the path with commas Ex: A,S,D
+                <input type="text" id="path-to-send" placeholder="A,B,C,..." value="A,D"/>
+            </p>
+        </div>
+    </div>
+    <div hidden="true">
+        <div id="dialog-confirm-stripsexactly" title="Put your parameters">
+            <p>
+                <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;">
+                </span>Put the source and the target vertext to calculate the number of strips
+                <div class="row controls-own">
+                    <input type="text" id="source-vertex-exac" class="col-xs-4" placeholder="A" value="A"/>
+                    <input type="text" id="target-vertex-exac" class="col-xs-4" placeholder="C" value="C"/>
+                    <input type="number" id="number-strips-exac" class="col-xs-3" placeholder="3" value="4"/>
+                </div>
+            </p>
+        </div>
+    </div>
+    <div hidden="true">
+        <div id="dialog-confirm-stripsminimun" title="Put your parameters">
+            <p>
+                <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;">
+                </span>Put the source and the target vertext to calculate the number of strips
+                <div class="row controls-own">
+                    <input type="text" id="source-vertex-min" class="col-xs-4" placeholder="A" value="C" />
+                    <input type="text" id="target-vertex-min" class="col-xs-4" placeholder="C" value="C" />
+                    <input type="number" id="number-strips-min" class="col-xs-3" placeholder="3" />
+                </div>
+                
+            </p>
+        </div>
+    </div>
+    <div hidden="true">
+        <div id="dialog-confirm-shortestroute" title="Put your parameters">
+            <p>
+                <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;">
+                </span>Calculate the shortest route
+                <div class="row controls-own">
+                    <input type="text" id="source-vertex-shortest" class="col-xs-4" placeholder="A" value="C" />
+                    <input type="text" id="target-vertex-shortest" class="col-xs-4" placeholder="C" value="C" />
+                </div>
+                
+            </p>
+        </div>
+    </div>
+    <div hidden="true">
+        <div id="dialog-confirm-numberroute" title="Put your parameters">
+            <p>
+                <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;">
+                </span>Calculate the number of routes
+                <div class="row controls-own">
+                    <input type="text" id="source-vertex-numberroute" class="col-xs-4" placeholder="A" value="C" />
+                    <input type="text" id="target-vertex-numberroute" class="col-xs-4" placeholder="C" value="C" />
+                </div>
+                
+            </p>
+        </div>
+    </div>
 </body>
 </html>

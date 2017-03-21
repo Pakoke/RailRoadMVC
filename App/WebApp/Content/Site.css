@@ -25,9 +25,16 @@ textarea {
 
 #mynetwork{
     height: 500px;
+    padding:10px;
 }
 #interactions {
-    margin:0px;
+    display:flex;
+    align-items: center;
+    height:500px;
+}
+#interactions h1 {
+    text-align:center;
+    font-size:15px;
 }
 .buttons-own div{
     display:inline-flex;
@@ -37,6 +44,17 @@ textarea {
 .buttons-own div button {
     width: auto;
 }
+
+.controls-own input{
+    margin: 5px 5px 0px 5px
+}
+
+.controls-own button{
+    margin: 5px 0px 0px 2px
+}
+
+
+
 
 @media screen and (max-width:1200px) {
     .buttons-own div button {
